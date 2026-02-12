@@ -1,0 +1,128 @@
+/* Custom Scroll Behavior */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Building Construction Animation Classes */
+.floor-reveal {
+    opacity: 0;
+    transform: translateY(60px);
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.floor-reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Stagger delays for floor effect */
+.floor-1 { transition-delay: 0.1s; }
+.floor-2 { transition-delay: 0.2s; }
+.floor-3 { transition-delay: 0.3s; }
+.floor-4 { transition-delay: 0.4s; }
+
+/* --- 3D Flip Card Corrigido --- */
+
+/* O Container do Card */
+.portfolio-card {
+    perspective: 1000px; /* Profundidade 3D */
+    cursor: pointer;
+}
+
+/* O "Miolo" que gira */
+.portfolio-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Efeito elástico suave */
+    transform-style: preserve-3d;
+}
+
+/* Quando ativa (clique), gira 180 graus */
+.portfolio-card.active .portfolio-inner {
+    transform: rotateY(180deg);
+}
+
+/* Estilo comum para Frente e Verso */
+.portfolio-3d, .portfolio-blueprint {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden; /* Safari */
+    backface-visibility: hidden; /* Esconde as costas do elemento */
+    border-radius: 0.25rem; /* rounded-sm do Tailwind */
+    top: 0;
+    left: 0;
+}
+
+/* --- A FRENTE (Imagem) --- */
+.portfolio-3d {
+    background-color: #fff;
+    transform: rotateY(0deg); /* Começa virado pra frente */
+    z-index: 2; /* Garante que fique na frente */
+}
+
+/* --- O VERSO (Especificações) --- */
+.portfolio-blueprint {
+    background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%);
+    border: 2px solid #DAB97F;
+    transform: rotateY(180deg); /* Já começa virado pra trás */
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* --- Ajuste dos Textos (AR Elements) --- */
+/* Removemos a opacidade complexa para evitar bugs visuais, usamos delay simples */
+.ar-element {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.4s ease;
+}
+
+/* Só mostra o texto quando o card estiver virado */
+.portfolio-card.active .ar-element {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.3s; /* Espera o giro terminar um pouco */
+}
+
+/* Gold Glow Effect */
+.gold-glow:hover {
+    box-shadow: 0 0 30px rgba(218, 185, 127, 0.4);
+    transform: translateY(-2px);
+}
+
+/* Authority Seal Pulse */
+.seal-pulse {
+    animation: sealPulse 2s infinite;
+}
+
+@keyframes sealPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(91, 10, 37, 0.2); }
+    50% { box-shadow: 0 0 0 10px rgba(91, 10, 37, 0); }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+    background: #FAFAFA;
+}
+::-webkit-scrollbar-thumb {
+    background: #5B0A25;
+    border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #DAB97F;
+}
+
+/* Input Focus Styles */
+input:focus, textarea:focus {
+    outline: none;
+    border-color: #DAB97F;
+    box-shadow: 0 0 0 3px rgba(218, 185, 127, 0.2);
+}
